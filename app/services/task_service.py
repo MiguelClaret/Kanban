@@ -38,10 +38,18 @@ def alterar_status_task(data):
 
     task.status_task = data['status_task']
 
+    if(task.status_task > 4 or task.status_task == 0):
+        return jsonify({
+            "Message":  f"O Status {task.status_task} não existe"
+        })
+
     if(task.status_task == 4):
         task.data_finalizacao = datetime.now()
     
     db.session.commit()
+    return jsonify({
+        'Message': f'Status da Task {task.titulo} alterado para {task.status.status}'
+    }), 200
 
 def deletar_task(task_id):
     task = Task.query.get_or_404(task_id)
