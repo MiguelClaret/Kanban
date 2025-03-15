@@ -21,5 +21,6 @@ class Sprint(db.Model):
             'num_sprint': self.num_sprint,
             'data_inicio': self.data_inicio,
             'data_fim': self.data_fim,
-            'id_scrum_master': self.id_scrum_master
+            'id_scrum_master': self.id_scrum_master,
+            'nome_scrum_master': self.scrum.nome_completo
             }

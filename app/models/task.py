@@ -30,6 +30,8 @@ class Task(db.Model):
             'descricao': self.descricao,
             'tamanho': self.tamanho,
             'id_responsavel': self.id_responsavel,
-            'status_task': self.status_task,
+            'nome_do_responsavel': self.user.nome_completo,
+            'id_status_task': self.status_task,
+            'status_task': self.status.status,
             'data_finalizacao': self.data_finalizacao
             }
