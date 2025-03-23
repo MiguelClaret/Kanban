@@ -1,17 +1,20 @@
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
-import os
-from config.database import db, migrate
+from flask_cors import CORS
 
-from app.models.user import User
-from app.models.sprint import Sprint
-from app.models.task import Task
-from app.models.tamanhoTask import TamanhoTask
-from app.models.statusTask import StatusTask
+import os
+from .config.database import db, migrate
+
+from .app.models.user import User
+from .app.models.sprint import Sprint
+from .app.models.task import Task
+from .app.models.tamanhoTask import TamanhoTask
+from .app.models.statusTask import StatusTask
 
 
 app = Flask(__name__)
+CORS(app)
 
 # Configura o banco de dados
 # Define o caminho para o banco de dados
@@ -34,9 +37,9 @@ migrate.init_app(app, db)
 with app.app_context():
     db.create_all()
 
-from app.routes.auth import auth_bp
-from app.routes.tasks import task_bp
-from app.routes.sprints import sprint_bp
+from .app.routes.auth import auth_bp
+from .app.routes.tasks import task_bp
+from .app.routes.sprints import sprint_bp
 
 # Chamadnas as rotas que foram criadas no outro arquivo
 app.register_blueprint(auth_bp)

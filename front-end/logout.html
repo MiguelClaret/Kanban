@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logout</title>
+</head>
+<body>
+  <h2>Logout</h2>
+  <button id="logout-button">Logout</button>
+
+  <script>
+    document.getElementById('logout-button').onclick = function () {
+      // Remove o token do localStorage
+      localStorage.removeItem('access_token');
+      
+      // Redireciona o usuário para a página de login
+      alert("Você foi deslogado.");
+      window.location.href = 'login.html';  // Redireciona para a página de login
+    }
+  </script>
+</body>
+</html>

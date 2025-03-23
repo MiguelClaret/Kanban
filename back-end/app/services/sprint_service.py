@@ -1,6 +1,6 @@
 from ..models.sprint import Sprint
 from datetime import datetime
-from config.database import db
+from ...config.database import db
 from flask import jsonify
 
 def listar_todas_sprints():

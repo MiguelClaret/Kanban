@@ -1,10 +1,10 @@
 from flask_jwt_extended import create_access_token
-from app.models.user import User
-from config.database import db
+from ..models.user import User
+from ...config.database import db
 from flask import jsonify
 
 def register_user(data):
-    from main import bcrypt  # Importa o bcrypt do main
+    from ...main import bcrypt  # Importa o bcrypt do main
 
     email = data['email']
     senha = data['senha']
@@ -25,7 +25,7 @@ def register_user(data):
     return jsonify({"message": "Usuário registrado com sucesso!"}), 201
 
 def login_user(data):
-    from main import bcrypt  # Importa o bcrypt do main
+    from ...main import bcrypt  # Importa o bcrypt do main
 
     email = data['email']
     senha = data['senha']

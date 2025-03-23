@@ -1,5 +1,7 @@
 from flask import request, Blueprint
 from ..services.task_service import listar_todas_tasks, add_task, get_task_por_id, alterar_status_task, deletar_task, add_responsavel_task, get_task_por_sprint
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
 
 task_bp = Blueprint('tasks', __name__, url_prefix='/task')
 
@@ -9,6 +11,7 @@ def add():
     return add_task(data)
 
 @task_bp.route('/listar', methods=['GET'])
+@jwt_required()
 def listar_all():
     return listar_todas_tasks()
 

@@ -1,5 +1,5 @@
 from flask import request, Blueprint
-from app.services.sprint_service import listar_todas_sprints, add_sprint, get_sprint_por_id, deletar_sprint
+from ..services.sprint_service import listar_todas_sprints, add_sprint, get_sprint_por_id, deletar_sprint
 
 sprint_bp = Blueprint('sprints', __name__, url_prefix='/sprint')
 

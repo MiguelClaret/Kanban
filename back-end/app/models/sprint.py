@@ -1,4 +1,4 @@
-from config.database import db  # Importação relativa
+from ...config.database import db  # Importação relativa
 
 #Criando a tabela
 class Sprint(db.Model):

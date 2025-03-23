@@ -1,6 +1,6 @@
 from ..models.task import Task
 from datetime import datetime
-from config.database import db
+from ...config.database import db
 from flask import jsonify
 
 def listar_todas_tasks():
