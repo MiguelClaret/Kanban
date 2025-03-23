@@ -14,8 +14,6 @@
     <button type="submit">Login</button>
   </form>
   <p id="login-resultado"></p>
-  
-  <p><a href="listar.html">Ir para a lista de itens</a></p>
 </body>
 <script>
  document.getElementById('login-form').onsubmit = function (e) {
@@ -31,9 +29,8 @@
   })
   .then(response => response.json())
   .then(data => {
-    if (data.access_token) {  // Corrigido para acessar "access_token"
+    if (data.access_token) {  
       localStorage.setItem('access_token', data.access_token);  // Armazena o token no localStorage
-      alert("Login bem-sucedido");
       window.location.href = "listar.html";  // Aqui você redireciona para outra página
 
     } else {
@@ -45,8 +42,5 @@
     alert('Erro na requisição. Tente novamente.');
   });
 }
-
-
-
 </script>
 </html>

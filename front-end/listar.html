@@ -8,7 +8,7 @@
 </head>
 <body>
   <h1>Lista de Itens</h1>
-  <button onclick="listarItens()">Carregar Itens</button>
+  <button onclick="listar_tasks()">Carregar Itens</button>
   <ul id="lista-itens"></ul>
   <p id="erro-msg" style="color: red;"></p>  <!-- Aqui será exibida a mensagem de erro -->
 
@@ -19,7 +19,6 @@
 
   <script>
     document.getElementById('logout-button').onclick = function () {
-      // Remove o token do localStorage
       localStorage.removeItem('access_token');
       
       // Redireciona o usuário para a página de login
@@ -27,42 +26,40 @@
       window.location.href = 'login.html';  // Redireciona para a página de login
     }
 
-function listarItens() {
-  const token = localStorage.getItem('access_token');
-  
-  fetch('http://127.0.0.1:5000/task/listar', {
-    method: 'GET',
-    headers: { 
-      'Authorization': `Bearer ${token}`
+    function listar_tasks() {
+      const token = localStorage.getItem('access_token');
+      
+      fetch('http://127.0.0.1:5000/task/listar', {
+        method: 'GET',
+        headers: { 
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        if (response.status === 422) {
+          // Se o erro for 422, exibe uma mensagem de erro
+          document.getElementById('erro-msg').textContent = 'Erro de validação: dados inválidos ou falta de informações.';
+          throw new Error('Erro de validação');
+        }
+        return response.json(); // Continuar com o processamento normal da resposta se não for 422
+      })
+      .then(data => {
+        const lista = document.getElementById('lista-itens');
+        lista.innerHTML = '';
+        data.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = item.titulo;
+          lista.appendChild(li);
+        });
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+        // Se o erro não for 422, mostre uma mensagem genérica de erro
+        if (error.message !== 'Erro de validação') {
+          document.getElementById('erro-msg').textContent = 'Ocorreu um erro ao tentar listar os itens. Tente novamente mais tarde.';
+        }
+      });
     }
-  })
-  .then(response => {
-    if (response.status === 422) {
-      // Se o erro for 422, exibe uma mensagem de erro
-      document.getElementById('erro-msg').textContent = 'Erro de validação: dados inválidos ou falta de informações.';
-      throw new Error('Erro de validação');
-    }
-    return response.json(); // Continuar com o processamento normal da resposta se não for 422
-  })
-  .then(data => {
-    const lista = document.getElementById('lista-itens');
-    lista.innerHTML = '';
-    data.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = item.titulo;
-      lista.appendChild(li);
-    });
-  })
-  .catch(error => {
-    console.error('Erro:', error);
-    // Se o erro não for 422, mostre uma mensagem genérica de erro
-    if (error.message !== 'Erro de validação') {
-      document.getElementById('erro-msg').textContent = 'Ocorreu um erro ao tentar listar os itens. Tente novamente mais tarde.';
-    }
-  });
-}
-
-
   </script>
 </body>
 </html>
